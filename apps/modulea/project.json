@@ -1,0 +1,102 @@
+{
+  "name": "modulea",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "ng-mf",
+  "sourceRoot": "apps/modulea/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/modulea",
+        "index": "apps/modulea/src/index.html",
+        "main": "apps/modulea/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/modulea/tsconfig.app.json",
+        "assets": ["apps/modulea/src/favicon.ico", "apps/modulea/src/assets"],
+        "styles": ["apps/modulea/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/modulea/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/modulea/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:webpack-dev-server",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "modulea:build:production"
+        },
+        "development": {
+          "browserTarget": "modulea:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "modulea:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/modulea/**/*.ts", "apps/modulea/**/*.html"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "modulea:build",
+        "port": 4201,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "modulea:build:development"
+        },
+        "production": {
+          "buildTarget": "modulea:build:production"
+        }
+      }
+    }
+  }
+}
