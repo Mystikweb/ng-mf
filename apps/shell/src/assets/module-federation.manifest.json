@@ -1,3 +1,4 @@
 {
-  "modulea": "http://localhost:4201"
+  "modulea": "http://localhost:4201",
+  "moduleb": "http://localhost:4202"
 }

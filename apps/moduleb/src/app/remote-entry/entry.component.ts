@@ -4,16 +4,16 @@ import { Observable } from 'rxjs';
 import { PageBaseComponent, UserService } from '@ng-mf/shared';
 
 @Component({
-  selector: 'ng-mf-modulea-entry',
+  selector: 'mdb-moduleb-entry',
   template: `
-    <h1>Module A Home</h1>
+    <h1>Module B Home</h1>
     <div>User is {{ (authenticated$ | async) ? 'authenticated': 'not authenticated' }}</div>
   `,
 })
 export class RemoteEntryComponent extends PageBaseComponent {
   private _userService = inject(UserService);
 
-  override pageId = 'Module A Home'
+  override pageId = 'Module B Home'
 
   get authenticated$(): Observable<boolean> { return this._userService.isUserLoggedIn$; }
 }

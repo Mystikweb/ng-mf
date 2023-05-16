@@ -1,15 +1,25 @@
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { Route } from '@angular/router';
 import { loadRemoteModule } from '@nx/angular/mf';
+import { HomeComponent } from './home/home.component';
 
 export const appRoutes: Route[] = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
   {
     path: 'modulea',
     loadChildren: () =>
       loadRemoteModule('modulea', './Module').then((m) => m.RemoteEntryModule),
   },
   {
+    path: 'moduleb',
+    loadChildren: () =>
+      loadRemoteModule('moduleb', './Module').then((m) => m.RemoteEntryModule),
+  },
+  {
     path: '',
-    component: NxWelcomeComponent,
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
 ];
