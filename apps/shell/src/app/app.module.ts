@@ -7,10 +7,16 @@ import { appRoutes } from './app.routes';
 import { NxWelcomeComponent } from './nx-welcome.component';
 
 import { SharedModule } from '@ng-mf/shared';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    NxWelcomeComponent,
+    HomeComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

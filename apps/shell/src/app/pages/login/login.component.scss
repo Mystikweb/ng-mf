@@ -1,0 +1,17 @@
+.login-card {
+  width: 30em;
+
+  .login-title {
+    padding: 1em;
+    text-align: center;
+  }
+}
+
+.login-error {
+  position: relative;
+  display: block;
+  margin-top: 0.5em;
+  color: red;
+  font-size: larger;
+  text-align: center;
+}

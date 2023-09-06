@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { PageBaseComponent, UserService } from '@ng-mf/shared';
@@ -10,10 +10,12 @@ import { PageBaseComponent, UserService } from '@ng-mf/shared';
     <div>User is {{ (authenticated$ | async) ? 'authenticated': 'not authenticated' }}</div>
   `,
 })
-export class RemoteEntryComponent extends PageBaseComponent {
+export class RemoteEntryComponent extends PageBaseComponent implements OnInit {
   private _userService = inject(UserService);
 
-  override pageId = 'Module A Home'
-
   get authenticated$(): Observable<boolean> { return this._userService.isUserLoggedIn$; }
+
+  ngOnInit(): void {
+    this._pageId = 'Module A Home';
+  }
 }

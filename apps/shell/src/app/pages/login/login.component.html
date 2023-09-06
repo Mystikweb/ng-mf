@@ -1,0 +1,41 @@
+<form [formGroup]="loginForm"
+      (submit)="save()">
+  <mat-card class="login-card">
+    <mat-card-title class="login-title">Login</mat-card-title>
+    <mat-card-content>
+      <div class="form-vertical">
+        <div class="form-row">
+          <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input type="text"
+                   placeholder="Username"
+                   matInput
+                   formControlName="username" />
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input type="password"
+                  placeholder="Password"
+                   matInput
+                   formControlName="password" />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions [align]="'end'">
+      <button type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="loginForm.invalid || requestActive">
+        Login
+      </button>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="requestActive">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+  <div class="login-error"
+       *ngIf="loginError">{{ loginError }}</div>
+</form>

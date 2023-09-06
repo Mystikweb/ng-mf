@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/no-host-metadata-property */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { PageComponent } from '../application.model';
 
@@ -12,15 +12,18 @@ import { PageComponent } from '../application.model';
     '[attr.id]': 'pageId'
   }
 })
-export abstract class PageBaseComponent implements PageComponent, OnInit {
-  pageId!: string;
-  isStartup = false;
-  displayFlex = true;
-  alignCenter = false;
+export abstract class PageBaseComponent implements PageComponent {
 
-  ngOnInit(): void {
-      if (this.pageId === undefined || this.pageId.length === 0) {
-          throw new Error('Component must set the [pageId] value');
-      }
-  }
+  get pageId(): string { return this._pageId; }
+  protected _pageId = '';
+
+  get isStartup(): boolean { return this._isStartup; }
+  protected _isStartup = false;
+
+  get displayFlex(): boolean { return this._displayFlex; }
+  protected _displayFlex = true;
+
+  get alignCenter(): boolean { return this._alignCenter; }
+  protected _alignCenter = false;
+
 }

@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 
 import { A11yModule } from '@angular/cdk/a11y';
+import { BidiModule } from '@angular/cdk/bidi';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { DialogModule } from '@angular/cdk/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { LayoutModule } from '@angular/cdk/layout';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PlatformModule } from '@angular/cdk/platform';
@@ -24,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -41,7 +45,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatTabsModule, MAT_TABS_CONFIG } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
@@ -49,10 +53,13 @@ import { MatTreeModule } from '@angular/material/tree';
 @NgModule({
   exports: [
     A11yModule,
+    BidiModule,
     ClipboardModule,
+    DialogModule,
     CdkStepperModule,
     CdkTableModule,
     CdkTreeModule,
+    TextFieldModule,
     DragDropModule,
     LayoutModule,
     OverlayModule,
@@ -70,6 +77,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
+    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
@@ -97,24 +105,39 @@ import { MatTreeModule } from '@angular/material/tree';
   ],
   providers: [
     {
-      provide: MAT_DRAWER_DEFAULT_AUTOSIZE,
-      useValue: true
-    },
-    {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
       useValue: {
-        width: '29em',
+        width: '400px',
         autoFocus: true,
         disableClose: true,
         hasBackdrop: true
       }
     },
     {
+      provide: MAT_DRAWER_DEFAULT_AUTOSIZE,
+      useValue: true
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic'
+      }
+    },
+    {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {
-        duration: 3000,
-        horizontalPosition: 'center',
+        duration: 5000,
+        horizontalPosition: 'right',
         verticalPositions: 'bottom'
+      }
+    },
+    {
+      provide: MAT_TABS_CONFIG,
+      useValue: {
+        animationDuration: '0ms',
+        disablePagination: false,
+        dynamicHeight: false,
+        fitInkBarToContent: false
       }
     }
   ]

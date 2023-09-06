@@ -1,11 +1,17 @@
 import { Route } from '@angular/router';
 import { loadRemoteModule } from '@nx/angular/mf';
-import { HomeComponent } from './home/home.component';
+
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const appRoutes: Route[] = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'modulea',

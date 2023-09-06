@@ -5,16 +5,20 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private isUserLoggedIn = new BehaviorSubject<boolean>(false);
-  isUserLoggedIn$ = this.isUserLoggedIn.asObservable();
+  private readonly _isUserLoggedIn = new BehaviorSubject<boolean>(false);
+  readonly isUserLoggedIn$ = this._isUserLoggedIn.asObservable();
+
+  getLoggedIn(): boolean {
+    return this._isUserLoggedIn.value;
+  }
 
   checkCredentials(username: string, password: string): void {
     if (username === 'demo' && password === 'demo') {
-      this.isUserLoggedIn.next(true);
+      this._isUserLoggedIn.next(true);
     }
   }
 
   logout(): void {
-    this.isUserLoggedIn.next(false);
+    this._isUserLoggedIn.next(false);
   }
 }

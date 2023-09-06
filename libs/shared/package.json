@@ -2,8 +2,8 @@
   "name": "@ng-mf/shared",
   "version": "0.0.1",
   "exports": {
-    "./styles/application": {
-      "sass": "./styles/application.styles.scss"
+    "./styles": {
+      "sass": "./styles/_index.scss"
     }
   },
   "peerDependencies": {
