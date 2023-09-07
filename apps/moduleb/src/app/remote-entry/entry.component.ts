@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { PageBaseComponent, UserService } from '@ng-mf/shared';
@@ -14,10 +14,12 @@ import { PageBaseComponent, UserService } from '@ng-mf/shared';
   `,
 })
 export class RemoteEntryComponent extends PageBaseComponent implements OnInit {
-  private _userService = inject(UserService);
-
   get authenticated$(): Observable<boolean> {
     return this._userService.isUserLoggedIn$;
+  }
+
+  constructor(private readonly _userService: UserService) {
+    super();
   }
 
   ngOnInit(): void {

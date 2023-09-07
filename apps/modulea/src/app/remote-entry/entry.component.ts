@@ -11,9 +11,12 @@ import { PageBaseComponent, UserService } from '@ng-mf/shared';
   `,
 })
 export class RemoteEntryComponent extends PageBaseComponent implements OnInit {
-  private readonly _userService = inject(UserService);
 
   get authenticated$(): Observable<boolean> { return this._userService.isUserLoggedIn$; }
+
+  constructor(private _userService: UserService) {
+    super();
+  }
 
   ngOnInit(): void {
     this._pageId = 'Module A Home';

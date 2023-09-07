@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { PageBaseComponent, UserService } from '@ng-mf/shared';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ng-mf-home',
@@ -9,8 +9,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent extends PageBaseComponent {
-  private readonly _userService = inject(UserService);
 
   get authenticated$(): Observable<boolean> { return this._userService.isUserLoggedIn$; }
+
+  constructor(private readonly _userService: UserService) {
+    super();
+  }
 
 }

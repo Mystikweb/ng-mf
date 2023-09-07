@@ -1,15 +1,17 @@
-import { ErrorHandler, Injectable, Provider, inject } from '@angular/core';
+import { ErrorHandler, Injectable, Provider } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalExceptionHandlerService implements ErrorHandler {
-  private readonly _snackBar = inject(MatSnackBar);
 
+  constructor(private readonly _snackBar: MatSnackBar) { }
 
   handleError(error: unknown): void {
-    this._snackBar.open(`${error}`).afterDismissed().subscribe();
+    this._snackBar.open(`${error}`, undefined, {
+      duration: -1
+    }).afterDismissed().subscribe();
   }
 
 }
