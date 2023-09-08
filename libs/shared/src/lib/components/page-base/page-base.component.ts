@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/no-host-metadata-property */
 import { Component } from '@angular/core';
 
-import { PageComponent } from '../application.model';
+import { PageComponent } from '../../models';
 
 @Component({
   template: '',

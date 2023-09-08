@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { PageBaseComponent, UserService } from '@ng-mf/shared';
+import { PageBaseComponent, selectLoggedIn } from '@ng-mf/shared';
 
 @Component({
   selector: 'ng-mf-modulea-entry',
@@ -12,10 +13,12 @@ import { PageBaseComponent, UserService } from '@ng-mf/shared';
 })
 export class RemoteEntryComponent extends PageBaseComponent implements OnInit {
 
-  get authenticated$(): Observable<boolean> { return this._userService.isUserLoggedIn$; }
+  readonly authenticated$: Observable<boolean>;
 
-  constructor(private _userService: UserService) {
+  constructor(private readonly _store: Store) {
     super();
+
+    this.authenticated$ = this._store.select(selectLoggedIn);
   }
 
   ngOnInit(): void {

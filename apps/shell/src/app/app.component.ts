@@ -1,19 +1,17 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
-import { map, shareReplay } from 'rxjs';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, map, shareReplay } from 'rxjs';
 
-import { UserService } from '@ng-mf/shared';
+import { AuthActions, selectLoggedIn } from '@ng-mf/shared';
 
 @Component({
   selector: 'ng-mf-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  get showLogin(): boolean {
-    return this._showLogin;
-  }
-  private _showLogin = true;
+export class AppComponent {
+  readonly authenticated$: Observable<boolean>;
 
   isHandset$ = this._breakpointObserver.observe(Breakpoints.Handset).pipe(
     map((result) => result.matches),
@@ -22,15 +20,12 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly _breakpointObserver: BreakpointObserver,
-    private readonly _userService: UserService
-  ) {}
+    private readonly _store: Store
+  ) {
+    this.authenticated$ = this._store.select(selectLoggedIn);
+  }
 
-  ngOnInit(): void {
-    const loggedIn = this._userService.getLoggedIn();
-    this._showLogin = loggedIn === false;
-
-    this._userService.isUserLoggedIn$.subscribe(
-      (value) => (this._showLogin = value === false)
-    );
+  logout(): void {
+    this._store.dispatch(AuthActions.logout());
   }
 }

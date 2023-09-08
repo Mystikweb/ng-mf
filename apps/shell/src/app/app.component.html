@@ -27,7 +27,7 @@
       </button>
       <span>NG Module Federation Loader</span>
       <span class="flex-spacer"></span>
-      <a *ngIf="showLogin" aria-label="Login" [routerLink]="['login']">Login</a>
+      <a *ngIf="!(authenticated$ | async)" aria-label="Login" routerLink="login">Login</a>
     </mat-toolbar>
     <div class="sidenav-content-outlet">
       <router-outlet></router-outlet>

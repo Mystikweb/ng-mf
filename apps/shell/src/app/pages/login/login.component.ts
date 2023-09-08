@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { PageBaseComponent, UserService } from '@ng-mf/shared';
+import { PageBaseComponent, UserCredentials, UserLoginActions, selectLoginPageError, selectLoginPagePending } from '@ng-mf/shared';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'ng-mf-login',
@@ -15,10 +16,10 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
   }
   private _loginForm!: FormGroup;
 
-  get loginError(): string | undefined {
+  get loginError(): string | null {
     return this._loginError;
   }
-  private _loginError?: string;
+  private _loginError: string | null = null;
 
   get requestActive(): boolean {
     return this._requestActive;
@@ -27,8 +28,7 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
 
   constructor(
     private readonly _formBuilder: FormBuilder,
-    private readonly _router: Router,
-    private readonly _authentication: UserService
+    private readonly _store: Store
   ) {
     super();
   }
@@ -37,16 +37,17 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     this._pageId = 'LOGIN PAGE';
     this._alignCenter = true;
 
-    this._loginForm = this._formBuilder.group({
-      username: [null, Validators.required],
-      password: [null, Validators.required],
+    this._loginForm = this._formBuilder.nonNullable.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
+
+    this._store.select(selectLoginPagePending).subscribe(isPending => this._requestActive = isPending);
+    this._store.select(selectLoginPageError).subscribe(error => this._loginError = error);
   }
 
   save(): void {
-    const { username, password } = this._loginForm.getRawValue();
-
-    this._authentication.checkCredentials(username, password);
-    this._router.navigate(['home']);
+    const credentials = this._loginForm.getRawValue() as UserCredentials;
+    this._store.dispatch(UserLoginActions.login({ credentials }));
   }
 }
