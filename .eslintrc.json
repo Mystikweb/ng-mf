@@ -69,7 +69,7 @@
         "*.ts"
       ],
       "rules": {
-        "@ngrx/use-consistent-global-store-name": false
+        "@ngrx/use-consistent-global-store-name": 0
       },
       "extends": [
         "plugin:@ngrx/recommended"
